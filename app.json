@@ -1,0 +1,6 @@
+{
+  "name": "valorizaNestJS",
+  "description": "Aplicação valoriza em NestJS",
+  "repository": "https://github.com/ThallesP/valorizaNest",
+  "keywords": ["rocketseat", "nestjs", "nlw together", "nlw valoriza", "nlw"]
+}
