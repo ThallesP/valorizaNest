@@ -17,6 +17,7 @@ Quer iniciar a aplicação com apenas alguns clicks? Clique no botão abaixo par
 
 ## 💻 Tecnologias usadas
 
+- [NodeJS](https://nodejs.org)
 - [Typescript](https://www.typescriptlang.org/)
 - [NestJS](https://nestjs.com/)
 - [TypeORM](https://typeorm.io/)
