@@ -4,6 +4,7 @@ import * as ormconfig from './config/ormconfig';
 import { UsersModule } from './users/users.module';
 import { config } from 'dotenv';
 import { ComplimentsModule } from './compliments/compliments.module';
+import { AuthModule } from './auth/auth.module';
 
 config();
 
@@ -16,6 +17,7 @@ config();
       ...ormconfig,
     }),
     ComplimentsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
