@@ -2,5 +2,12 @@
   "name": "valorizaNestJS",
   "description": "Aplicação valoriza em NestJS",
   "repository": "https://github.com/ThallesP/valorizaNest",
+  "env": {
+    "APP_KEY": {
+      "description": "Random KEY used for verifying JWT Tokens and other things.",
+      "generator": "secret"
+    }
+  },
+  "addons": ["heroku-postgresql"],
   "keywords": ["rocketseat", "nestjs", "nlw together", "nlw valoriza", "nlw"]
 }
