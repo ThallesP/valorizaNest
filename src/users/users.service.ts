@@ -43,7 +43,8 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.usersRepositories.findOne(id);
+    //TODO: For now, I'll comment this because I'll see other strategies in updating the user.
+    /*const user = await this.usersRepositories.findOne(id);
 
     if (!user) throw new NotFoundException('User not found.');
 
@@ -52,7 +53,7 @@ export class UsersService {
       ...updateUserDto,
     });
 
-    return userUpdated;
+    return userUpdated;*/
   }
 
   async remove(id: string) {

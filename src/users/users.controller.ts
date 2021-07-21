@@ -38,12 +38,13 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  //TODO: For now, I'll comment this because I'll see other strategies in updating the user.
+  /*@UseInterceptors(ClassSerializerInterceptor)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     const user = await this.usersService.update(id, updateUserDto);
     return user;
-  }
+  }*/
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
