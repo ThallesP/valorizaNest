@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepositores } from './users.repositories';
 import { hash } from 'bcrypt';
 
@@ -42,9 +41,9 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    //TODO: For now, I'll comment this because I'll see other strategies in updating the user.
-    /*const user = await this.usersRepositories.findOne(id);
+  //TODO: For now, I'll comment this because I'll see other strategies in updating the user.
+  /*async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepositories.findOne(id);
 
     if (!user) throw new NotFoundException('User not found.');
 
@@ -53,8 +52,8 @@ export class UsersService {
       ...updateUserDto,
     });
 
-    return userUpdated;*/
-  }
+    return userUpdated;
+  }*/
 
   async remove(id: string) {
     const user = await this.usersRepositories.findOne(id);
