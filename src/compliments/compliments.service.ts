@@ -1,3 +1,4 @@
+import { ForbiddenException } from '@nestjs/common';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from 'src/users/entities/user.entity';
 import { UsersRepositores } from 'src/users/users.repositories';
@@ -53,10 +54,19 @@ export class ComplimentsService {
     return compliment;
   }
 
-  async update(id: string, updateComplimentDto: UpdateComplimentDto) {
+  async update(
+    id: string,
+    user: User,
+    updateComplimentDto: UpdateComplimentDto,
+  ) {
     const compliment = await this.complimentsRepositories.findOne(id);
 
     if (!compliment) throw new BadRequestException('Compliment not found!');
+
+    if (compliment.user_sender != user.id)
+      throw new ForbiddenException(
+        "You can't update compliment of other users!",
+      );
 
     const complimentUpdated = await this.complimentsRepositories.save({
       ...compliment,

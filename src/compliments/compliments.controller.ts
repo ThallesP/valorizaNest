@@ -44,12 +44,18 @@ export class ComplimentsController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
+    @Request() request: RequestType,
     @Body() updateComplimentDto: UpdateComplimentDto,
   ) {
-    return this.complimentsService.update(id, updateComplimentDto);
+    return this.complimentsService.update(
+      id,
+      request.user,
+      updateComplimentDto,
+    );
   }
 
   @Delete(':id')
