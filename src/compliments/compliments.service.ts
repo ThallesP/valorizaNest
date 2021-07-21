@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { UsersRepositores } from 'src/users/users.repositories';
 import { ComplimentsRepositories } from './compliments.repositories';
 import { CreateComplimentDto } from './dto/create-compliment.dto';
@@ -11,8 +12,8 @@ export class ComplimentsService {
     private usersRepositories: UsersRepositores,
   ) {}
 
-  async create(createComplimentDto: CreateComplimentDto) {
-    if (createComplimentDto.user_receiver == createComplimentDto.user_sender) {
+  async create(user: User, createComplimentDto: CreateComplimentDto) {
+    if (createComplimentDto.user_receiver == user.id) {
       throw new BadRequestException(
         'You cannot send a compliment to yourself!',
       );
@@ -28,7 +29,10 @@ export class ComplimentsService {
       );
     }
 
-    const compliment = this.complimentsRepositories.create(createComplimentDto);
+    const compliment = this.complimentsRepositories.create({
+      user_sender: user.id,
+      ...createComplimentDto,
+    });
 
     await this.complimentsRepositories.save(compliment);
 

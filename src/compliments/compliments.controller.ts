@@ -8,7 +8,11 @@ import {
   Delete,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import type { Request as RequestType } from 'express';
+import { JwtAuthGuard } from 'src/auth/strategies/JwtAuthGuard';
 import { ComplimentsService } from './compliments.service';
 import { CreateComplimentDto } from './dto/create-compliment.dto';
 import { UpdateComplimentDto } from './dto/update-compliment.dto';
@@ -18,9 +22,13 @@ export class ComplimentsController {
   constructor(private readonly complimentsService: ComplimentsService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createComplimentDto: CreateComplimentDto) {
-    return this.complimentsService.create(createComplimentDto);
+  create(
+    @Request() request: RequestType,
+    @Body() createComplimentDto: CreateComplimentDto,
+  ) {
+    return this.complimentsService.create(request.user, createComplimentDto);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
