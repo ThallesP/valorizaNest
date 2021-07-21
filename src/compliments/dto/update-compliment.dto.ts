@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateComplimentDto } from './create-compliment.dto';
+import { IsNotEmpty } from 'class-validator';
 
-export class UpdateComplimentDto extends PartialType(CreateComplimentDto) {}
+export class UpdateComplimentDto {
+  @IsNotEmpty()
+  message: string;
+}
