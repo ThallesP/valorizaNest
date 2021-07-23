@@ -13,7 +13,10 @@ async function bootstrap() {
       'Valoriza é uma aplicação feita para elogiar as pessoas que você mais gosta e ama! Tudo de um jeito fácil e prático.',
     )
     .setVersion('1.0')
-    .addTag('Valoriza - API')
+    .addTag('Authentication')
+    .addTag('Users')
+    .addTag('Compliments')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
