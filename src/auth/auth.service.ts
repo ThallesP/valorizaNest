@@ -1,8 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
 import { UsersRepositores } from 'src/users/users.repositories';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -35,6 +40,30 @@ export class AuthService {
           subject: user.id,
         },
       ),
+    };
+  }
+
+  async registerUser(registerUserDto: RegisterUserDto) {
+    const userAlreadyExists = await this.usersRepositories.findOne({
+      email: registerUserDto.email,
+    });
+
+    if (userAlreadyExists)
+      throw new BadRequestException('User already exists.');
+
+    const passwordHash = await hash(registerUserDto.password, 8);
+
+    registerUserDto.password = passwordHash;
+
+    const user = this.usersRepositories.create(registerUserDto);
+
+    await this.usersRepositories.save(user);
+
+    const { token } = await this.login(user);
+
+    return {
+      token,
+      ...user,
     };
   }
 }

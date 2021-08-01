@@ -7,18 +7,23 @@ import {
   Delete,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
+import { JwtAuthGuard } from 'src/auth/strategies/JwtAuthGuard';
+import { ensureAdmin } from 'src/guards/ensureAdmin';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
 @ApiTags('Users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(ensureAdmin)
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     const user = await this.usersService.create(createUserDto);

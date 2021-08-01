@@ -20,11 +20,11 @@ import { UpdateComplimentDto } from './dto/update-compliment.dto';
 
 @Controller('compliments')
 @ApiTags('Compliments')
+@UseGuards(JwtAuthGuard)
 export class ComplimentsController {
   constructor(private readonly complimentsService: ComplimentsService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Request() request: RequestType,
@@ -46,7 +46,6 @@ export class ComplimentsController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
