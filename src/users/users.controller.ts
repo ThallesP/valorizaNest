@@ -14,8 +14,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { JwtAuthGuard } from 'src/auth/strategies/JwtAuthGuard';
 import { ensureAdmin } from 'src/guards/ensureAdmin';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiTags('Users')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

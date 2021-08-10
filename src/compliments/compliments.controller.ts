@@ -11,6 +11,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import type { Request as RequestType } from 'express';
 import { JwtAuthGuard } from 'src/auth/strategies/JwtAuthGuard';
 import { ComplimentsService } from './compliments.service';
@@ -18,6 +19,7 @@ import { CreateComplimentDto } from './dto/create-compliment.dto';
 import { UpdateComplimentDto } from './dto/update-compliment.dto';
 
 @Controller('compliments')
+@ApiTags('Compliments')
 @UseGuards(JwtAuthGuard)
 export class ComplimentsController {
   constructor(private readonly complimentsService: ComplimentsService) {}
